@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:38:34 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/10 20:23:46 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/13 15:28:06 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@
 
 # define TILE 80
 
-typedef struct s_vector
-{
-	int	x;
-	int	y;
-}	t_vector;
-
 typedef enum e_tiletype
 {
 	EMPTY = '0',
@@ -37,20 +31,25 @@ typedef enum e_tiletype
 	COLLECTABLE = 'C',
 	PLAYER = 'P',
 	EXIT = 'E',
-	ENEMY_W = 'W',
-	ENEMY_S = 'S'
+	ENEMY = 'W'
 }	t_tiletype;
 
 typedef struct s_tile
 {
-	t_tiletype	type;
-	t_tiletype	og_type;
-	t_vector	pos;
+	t_tiletype		type;
+	t_tiletype		orig;
 	struct s_tile	*up;
 	struct s_tile	*down;
 	struct s_tile	*left;
 	struct s_tile	*right;
 }	t_tile;
+
+typedef struct s_enemy
+{
+	t_tile			*tile;
+	char			dir;
+	struct s_enemy	*next;
+}	t_enemy;
 
 typedef struct s_map
 {
@@ -76,8 +75,7 @@ typedef struct s_anim
 	int		death;
 	int		dang;
 	char	dir;
-	char	enemy_dir1;
-	char	enemy_dir2;
+	int		enemy_step;
 }				t_anim;
 
 typedef struct s_assets
@@ -87,7 +85,7 @@ typedef struct s_assets
 	void	*wall;
 	void	*exit;
 	void	*collect;
-	// void	*enemy;
+	void	*enemy;
 }				t_assets;
 
 typedef struct s_mlx_map {
@@ -98,6 +96,7 @@ typedef struct s_mlx_map {
 	t_anim		anim;
 	t_tile		**tilemap;
 	t_tile		*hero;
+	t_enemy		*enemy_list;
 }				t_mlx_map;
 
 void	ft_map_checker(t_mlx_map *mlx);
@@ -106,11 +105,12 @@ void	ft_ber(char *argv);
 t_tile	**generate_tilemap(t_mlx_map *mlx);
 void	ft_error(t_mlx_map *mlx, int error, char *str);
 
-int		ft_check_w(t_mlx_map *mlx);
-int		ft_check_s(t_mlx_map *mlx);
-int		ft_check_a(t_mlx_map *mlx);
-int		ft_check_d(t_mlx_map *mlx);
+void	ft_move_up(t_mlx_map *mlx);
+void	ft_move_down(t_mlx_map *mlx);
+void	ft_move_left(t_mlx_map *mlx);
+void	ft_move_right(t_mlx_map *mlx);
 
+void	ft_danger(t_mlx_map *mlx, int n);
 void	ft_floor(t_mlx_map *mlx);
 void	ft_hero_right2(t_mlx_map *mlx, int n);
 void	ft_hero_left2(t_mlx_map *mlx, int n);
@@ -119,7 +119,13 @@ void	ft_hero_right(t_mlx_map *mlx, int n);
 void	ft_hero_left(t_mlx_map *mlx, int n);
 void	ft_collect(t_mlx_map *mlx, int n);
 void	ft_exit(t_mlx_map *mlx, int n);
+void	ft_hero_exit(t_mlx_map *mlx, int n);
 void	ft_render(t_mlx_map *mlx);
 void	ft_init_assets(t_mlx_map *mlx);
+int		ft_anim(t_mlx_map *mlx);
+
+t_enemy	*ft_lst_new(void);
+t_enemy	*ft_lst_last(t_enemy *lst);
+int		ft_lst_add_back(t_enemy **lst, t_enemy *new);
 
 #endif /*SO_LONG_H*/

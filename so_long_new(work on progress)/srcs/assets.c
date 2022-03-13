@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 18:45:57 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/10 18:46:43 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/12 15:24:13 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ void	ft_collect(t_mlx_map *mlx, int n)
 	mlx->assets.collect = img;
 }
 
-void	ft_exit(t_mlx_map *mlx, int n)
+void	ft_hero_exit(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
 	int		img_height;
 	void	*img;
-
+	
 	if (n == 1)
 		path = "assets/exit.xpm";
 	if (n == 2)
@@ -118,11 +118,24 @@ void	ft_exit(t_mlx_map *mlx, int n)
 		path = "assets/exit1_right.xpm";
 	if (n == 5)
 		path = "assets/exit2_right.xpm";
-	if (n == 6)
+	img = mlx_xpm_file_to_image(mlx->mlx, path, &img_width, &img_height);
+	mlx->assets.hero = img;
+}
+
+void	ft_exit(t_mlx_map *mlx, int n)
+{
+	char	*path;
+	int		img_width;
+	int		img_height;
+	void	*img;
+
+	if (n == 1)
+		path = "assets/exit.xpm";
+	if (n == 2)
 		path = "assets/exit1.xpm";
-	if (n == 7)
+	if (n == 3)
 		path = "assets/exit2.xpm";
-	if (n == 8)
+	if (n == 4)
 		path = "assets/exit3.xpm";
 	img = mlx_xpm_file_to_image(mlx->mlx, path, &img_width, &img_height);
 	mlx->assets.exit = img;

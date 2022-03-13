@@ -6,7 +6,7 @@
 #    By: sclam <sclam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 06:05:07 by sclam             #+#    #+#              #
-#    Updated: 2022/03/10 20:24:00 by sclam            ###   ########.fr        #
+#    Updated: 2022/03/12 16:47:10 by sclam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ CFLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	main.c srcs/assets.c srcs/assets2.c \
 			srcs/map_check.c srcs/map_read.c srcs/render.c \
-			srcs/tilemap.c srcs/wasd.c \
+			srcs/tilemap.c srcs/wasd.c srcs/animation.c \
+			srcs/enemy.c \
 
 LIBFT	=	-L./libft -lft
 

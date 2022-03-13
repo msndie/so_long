@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 18:38:08 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/10 18:41:31 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/12 17:05:07 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static int	ft_check_char(t_mlx_map *mlx, int i, int n)
 	char	c;
 
 	c = mlx->map.map[i][n];
-	if (c != '1' && c != '0' && c != 'P' && c != 'E' && c != 'C' && c != '\n')
+	if (c != '1' && c != '0' && c != 'P' && c != 'E' && c != 'C' && c != '\n'
+		&& c != 'W' && c != 'S')
 		ft_error(mlx, -1, "Map error");
 	return (0);
 }

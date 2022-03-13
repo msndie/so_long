@@ -6,108 +6,140 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 20:22:25 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/10 20:22:51 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/13 20:51:09 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	ft_check_w(t_mlx_map *mlx)
+void	ft_move_up(t_mlx_map *mlx)
 {
-	if (mlx->hero->up->type == WALL)
-		return (-1);
-	else if (mlx->hero->up->type == EMPTY)
+	mlx->anim.up = 10;
+	if (mlx->hero->up->type == COLLECTABLE)
 	{
-		mlx->hero->up->type = PLAYER;
-		mlx->hero->type = EMPTY;
-		mlx->hero = mlx->hero->up;
-	}
-	else if (mlx->hero->up->type == COLLECTABLE)
-	{
-		mlx->hero->up->type = PLAYER;
-		mlx->hero->type = EMPTY;
-		mlx->hero = mlx->hero->up;
+		mlx->anim.up = 0;
 		mlx->map.coll -= 1;
+		mlx->anim.col_flag = 35;
 	}
 	else if (mlx->hero->up->type == EXIT)
 	{
 		if (mlx->map.coll == 0)
 		{
-			mlx->hero->type = EMPTY;
+			mlx->hero->up->orig = EMPTY;
 			mlx->map.end_game = 1;
+			mlx->anim.exit = 20;
+			mlx->anim.up = 0;
 		}
 	}
-	return (0);
+	else if (mlx->hero->up->type == ENEMY)
+	{
+		mlx->anim.up = 0;
+		mlx->map.end_game = 2;
+		mlx->anim.death = 20;
+	}
+	if (mlx->hero->orig != EXIT)
+		mlx->hero->type = EMPTY;
+	else
+		mlx->hero->type = EXIT;
+	mlx->hero->up->type = PLAYER;
+	mlx->hero = mlx->hero->up;
 }
 
-int	ft_check_s(t_mlx_map *mlx)
+void	ft_move_down(t_mlx_map *mlx)
 {
-	if (mlx->hero->down->type == WALL)
-		return (-1);
-	else if (mlx->hero->down->type == EMPTY)
+	mlx->anim.down = 10;
+	if (mlx->hero->down->type == COLLECTABLE)
 	{
-		mlx->hero->down->type = PLAYER;
-		mlx->hero->type = EMPTY;
-		mlx->hero = mlx->hero->down;
-	}
-	else if (mlx->hero->down->type == COLLECTABLE)
-	{
-		mlx->hero->down->type = PLAYER;
-		mlx->hero->type = EMPTY;
-		mlx->hero = mlx->hero->down;
+		mlx->anim.down = 0;
 		mlx->map.coll -= 1;
+		mlx->anim.col_flag = 35;
 	}
 	else if (mlx->hero->down->type == EXIT)
 	{
-		
+		if (mlx->map.coll == 0)
+		{
+			mlx->hero->down->orig = EMPTY;
+			mlx->anim.down = 0;
+			mlx->map.end_game = 1;
+			mlx->anim.exit = 20;
+		}
 	}
-	return (0);
+	else if (mlx->hero->down->type == ENEMY)
+	{
+		mlx->anim.down = 0;
+		mlx->map.end_game = 2;
+		mlx->anim.death = 20;
+	}
+	if (mlx->hero->orig != EXIT)
+		mlx->hero->type = EMPTY;
+	else
+		mlx->hero->type = EXIT;
+	mlx->hero->down->type = PLAYER;
+	mlx->hero = mlx->hero->down;
 }
 
-int	ft_check_a(t_mlx_map *mlx)
+void	ft_move_left(t_mlx_map *mlx)
 {
-	if (mlx->hero->left->type == WALL)
-		return (-1);
-	else if (mlx->hero->left->type == EMPTY)
+	mlx->anim.dir = 'l';
+	mlx->anim.step = 15;
+	if (mlx->hero->left->type == COLLECTABLE)
 	{
-		mlx->hero->left->type = PLAYER;
-		mlx->hero->type = EMPTY;
-		mlx->hero = mlx->hero->left;
-	}
-	else if (mlx->hero->left->type == COLLECTABLE)
-	{
-		mlx->hero->left->type = PLAYER;
-		mlx->hero->type = EMPTY;
-		mlx->hero = mlx->hero->left;
 		mlx->map.coll -= 1;
+		mlx->anim.step = 0;
+		mlx->anim.col_flag = 35;
 	}
 	else if (mlx->hero->left->type == EXIT)
 	{
-		
+		if (mlx->map.coll == 0)
+		{
+			mlx->anim.step = 0;
+			mlx->map.end_game = 1;
+			mlx->anim.exit = 20;
+		}
 	}
-	return (0);
+	else if (mlx->hero->left->type == ENEMY)
+	{
+		mlx->anim.step = 0;
+		mlx->map.end_game = 2;
+		mlx->anim.death = 20;
+	}
+	if (mlx->hero->orig != EXIT)
+		mlx->hero->type = EMPTY;
+	else
+		mlx->hero->type = EXIT;
+	mlx->hero->left->type = PLAYER;
+	mlx->hero = mlx->hero->left;
 }
 
-int	ft_check_d(t_mlx_map *mlx)
+void	ft_move_right(t_mlx_map *mlx)
 {
-	if (mlx->hero->right->type == WALL)
-		return (-1);
-	else if (mlx->hero->right->type == EMPTY)
+	mlx->anim.dir = 'r';
+	mlx->anim.step = 15;
+	if (mlx->hero->right->type == COLLECTABLE)
 	{
-		mlx->hero->right->type = PLAYER;
-		mlx->hero->type = EMPTY;
-		mlx->hero = mlx->hero->right;
-	}
-	else if (mlx->hero->right->type == COLLECTABLE)
-	{
-		mlx->hero->right->type = PLAYER;
-		mlx->hero->type = EMPTY;
-		mlx->hero = mlx->hero->right;
+		mlx->anim.step = 0;
 		mlx->map.coll -= 1;
+		mlx->anim.col_flag = 35;
 	}
 	else if (mlx->hero->right->type == EXIT)
 	{
-
+		if (mlx->map.coll == 0)
+		{
+			mlx->anim.step = 0;
+			mlx->map.end_game = 1;
+			mlx->anim.exit = 20;
+		}
 	}
-	return (0);
+	else if (mlx->hero->right->type == EXIT)
+	{
+		mlx->anim.step = 0;
+		mlx->map.end_game = 2;
+		mlx->anim.death = 20;
+	}
+	if (mlx->hero->orig != EXIT)
+		mlx->hero->type = EMPTY;
+	else
+		mlx->hero->type = EXIT;
+	mlx->hero->right->type = PLAYER;
+	mlx->hero = mlx->hero->right;
 }

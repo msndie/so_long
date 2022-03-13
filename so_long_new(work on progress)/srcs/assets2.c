@@ -6,11 +6,30 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 18:46:05 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/10 18:52:38 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/12 21:37:29 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+void	ft_danger(t_mlx_map *mlx, int n)
+{
+	char	*path;
+	int		img_width;
+	int		img_height;
+	void	*img;
+
+	if (n == 0)
+		path = "assets/danger1.xpm";
+	if (n == 1)
+		path = "assets/danger2.xpm";
+	if (n == 2)
+		path = "assets/danger3.xpm";
+	if (n == 3)
+		path = "assets/danger4.xpm";
+	img = mlx_xpm_file_to_image(mlx->mlx, path, &img_width, &img_height);
+	mlx->assets.enemy = img;
+}
 
 void	ft_hero_left2(t_mlx_map *mlx, int n)
 {
@@ -81,10 +100,10 @@ void	ft_init_assets(t_mlx_map *mlx)
 	ft_wall(mlx);
 	ft_hero_right(mlx, 1);
 	ft_floor(mlx);
-	ft_exit(mlx, 8);
+	ft_exit(mlx, 4);
 	ft_collect(mlx, 1);
 	// if (mlx->map.enemy_w > 0 || mlx->map.enemy_s > 0)
-	// 	ft_danger(mlx, 0);
+	ft_danger(mlx, 0);
 	mlx->map.end_game = 0;
 	// mlx->tile = 80;
 	mlx->anim.anim = 40;
@@ -93,7 +112,8 @@ void	ft_init_assets(t_mlx_map *mlx)
 	mlx->anim.col_flag = 0;
 	mlx->map.moves = 0;
 	mlx->anim.dir = 'r';
-	mlx->anim.death = 0;
+	mlx->anim.exit = 0;
+	// mlx->anim.death = 0;
 	// mlx->anim.enemy_dir1 = 'w';
 	// mlx->anim.enemy_dir2 = 's';
 }

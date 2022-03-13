@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 18:50:14 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/10 18:50:54 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/12 21:36:35 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ static void	ft_draw_tile(t_mlx_map *mlx, int x, int y, t_tiletype t)
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.collect, x, y);
 	else if (t == PLAYER)
 	{
-		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.floor, x, y);
+		// if (mlx->tilemap[y][x].orig == EMPTY)
+		// 	ft_putstr_fd("zemlya\n", 2);
+		// ft_draw_tile(mlx, x, y, mlx->tilemap[y][x].orig);
+		// mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.floor, x, y);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.hero, x, y);
 	}
 	else if (t == EXIT)
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.exit, x, y);
-	// else if (t == 'S')
-	// 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.enemy, x, y);
+	else if (t == ENEMY)
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.enemy, x, y);
 	// else if (t == 'W')
 	// 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.enemy, x, y);
 }
@@ -52,8 +55,9 @@ static void	ft_draw_score(t_mlx_map *mlx)
 
 void	ft_render(t_mlx_map *mlx)
 {
-	size_t	i;
-	size_t	n;
+	size_t		i;
+	size_t		n;
+	t_tiletype	type;
 
 	i = 0;
 	while (mlx->tilemap[i])
@@ -61,16 +65,24 @@ void	ft_render(t_mlx_map *mlx)
 		n = 0;
 		while (mlx->tilemap[i][n].type)
 		{
-			if (mlx->tilemap[i][n].type == WALL)
-				ft_draw_tile(mlx, n * TILE, i * TILE, WALL);
-			else if (mlx->tilemap[i][n].type == EMPTY)
-				ft_draw_tile(mlx, n * TILE, i * TILE, EMPTY);
-			else if (mlx->tilemap[i][n].type == COLLECTABLE)
-				ft_draw_tile(mlx, n * TILE, i * TILE, COLLECTABLE);
-			else if (mlx->tilemap[i][n].type == PLAYER)
-				ft_draw_tile(mlx, n * TILE, i * TILE, PLAYER);
-			else if (mlx->tilemap[i][n].type == EXIT)
-				ft_draw_tile(mlx, n * TILE, i * TILE, EXIT);
+			type = mlx->tilemap[i][n].type;
+			if (type == mlx->tilemap[i][n].orig)
+				ft_draw_tile(mlx, n * TILE, i * TILE, type);
+			else
+			{
+				ft_draw_tile(mlx, n * TILE, i * TILE, mlx->tilemap[i][n].orig);
+				ft_draw_tile(mlx, n * TILE, i * TILE, type);
+			}
+			// if (mlx->tilemap[i][n].type == WALL)
+			// 	ft_draw_tile(mlx, n * TILE, i * TILE, WALL);
+			// else if (mlx->tilemap[i][n].type == EMPTY)
+			// 	ft_draw_tile(mlx, n * TILE, i * TILE, EMPTY);
+			// else if (mlx->tilemap[i][n].type == COLLECTABLE)
+			// 	ft_draw_tile(mlx, n * TILE, i * TILE, COLLECTABLE);
+			// else if (mlx->tilemap[i][n].type == PLAYER)
+			// 	ft_draw_tile(mlx, n * TILE, i * TILE, PLAYER);
+			// else if (mlx->tilemap[i][n].type == EXIT)
+			// 	ft_draw_tile(mlx, n * TILE, i * TILE, EXIT);
 			// else if (mlx->tilemap[i][n].type == 'S')
 			// 	ft_draw_tile(mlx, n * TILE, i * TILE, 'S');
 			// else if (mlx->tilemap[i][n].type == 'W')

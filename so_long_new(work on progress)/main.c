@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:37:09 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/10 20:25:31 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/13 15:35:39 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,6 @@ void	ft_error(t_mlx_map *mlx, int error, char *str)
 	exit(EXIT_FAILURE);
 }
 
-// void	ft_danger(t_mlx_map *mlx, int n)
-// {
-// 	char	*path;
-// 	int		img_width;
-// 	int		img_height;
-// 	void	*img;
-
-// 	if (n == 0)
-// 		path = "assets/danger1.xpm";
-// 	if (n == 1)
-// 		path = "assets/danger2.xpm";
-// 	if (n == 2)
-// 		path = "assets/danger3.xpm";
-// 	if (n == 3)
-// 		path = "assets/danger4.xpm";
-// 	img = mlx_xpm_file_to_image(mlx->mlx, path, &img_width, &img_height);
-// 	mlx->assets.enemy = img;
-// }
-
 static int	ft_close(t_mlx_map *mlx)
 {
 	mlx_destroy_window(mlx->mlx, mlx->win);
@@ -57,20 +38,17 @@ static int	ft_close(t_mlx_map *mlx)
 
 static void	ft_change_map(t_mlx_map *mlx, char c)
 {
-	int	i;
-
-	i = -1;
 	if (mlx->anim.col_flag > 0 || mlx->anim.down > 0 || mlx->anim.up > 0)
 		return ;
-	if (c == 'W')
-		i = ft_check_w(mlx);
-	if (c == 'S')
-		i = ft_check_s(mlx);
-	if (c == 'A')
-		i = ft_check_a(mlx);
-	if (c == 'D')
-		i = ft_check_d(mlx);
-	if (i == -1)
+	if (c == 'W' && mlx->hero->up->type != WALL)
+		ft_move_up(mlx);
+	else if (c == 'S' && mlx->hero->down->type != WALL)
+		ft_move_down(mlx);
+	else if (c == 'A' && mlx->hero->left->type != WALL)
+		ft_move_left(mlx);
+	else if (c == 'D' && mlx->hero->right->type != WALL)
+		ft_move_right(mlx);
+	else
 		return ;
 	mlx->map.moves += 1;
 	mlx_clear_window(mlx->mlx, mlx->win);
@@ -118,6 +96,9 @@ int	main(int argc, char **argv)
 	ft_free_arr((void **)mlx.map.map);
 	if (!mlx.tilemap)
 		return (1);
+	mlx.anim.enemy_step = 50;
+	mlx.anim.dang = 40;
+	mlx.anim.death = 0;
 	mlx.hero = &mlx.tilemap[mlx.map.h_pos_y][mlx.map.h_pos_x];
 	h = mlx.map.height;
 	l = mlx.map.len - 1;
@@ -126,7 +107,7 @@ int	main(int argc, char **argv)
 	mlx.win = mlx_new_window(mlx.mlx, l * TILE, h * TILE, "so_long");
 	ft_render(&mlx);
 	mlx_key_hook(mlx.win, ft_key_hook, &mlx);
-	// mlx_loop_hook(mlx.mlx, ft_anim, &mlx);
+	mlx_loop_hook(mlx.mlx, ft_anim, &mlx);
 	mlx_hook(mlx.win, 17, 0, ft_close, &mlx);
 	mlx_loop(mlx.mlx);
 	return (0);
