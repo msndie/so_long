@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:37:09 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/13 15:35:39 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/21 17:05:57 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int	ft_close(t_mlx_map *mlx)
 
 static void	ft_change_map(t_mlx_map *mlx, char c)
 {
-	if (mlx->anim.col_flag > 0 || mlx->anim.down > 0 || mlx->anim.up > 0)
+	if (mlx->anim.col_flag > 0 || mlx->anim.down > 0 || mlx->anim.up > 0
+		|| mlx->map.end_game)
 		return ;
 	if (c == 'W' && mlx->hero->up->type != WALL)
 		ft_move_up(mlx);
@@ -51,8 +52,6 @@ static void	ft_change_map(t_mlx_map *mlx, char c)
 	else
 		return ;
 	mlx->map.moves += 1;
-	mlx_clear_window(mlx->mlx, mlx->win);
-	ft_render(mlx);
 }
 
 static int	ft_key_hook(int keycode, t_mlx_map *mlx)

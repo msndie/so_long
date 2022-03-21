@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 20:22:25 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/13 20:51:09 by sclam            ###   ########.fr       */
+/*   Updated: 2022/03/21 17:06:12 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	ft_move_right(t_mlx_map *mlx)
 			mlx->anim.exit = 20;
 		}
 	}
-	else if (mlx->hero->right->type == EXIT)
+	else if (mlx->hero->right->type == ENEMY)
 	{
 		mlx->anim.step = 0;
 		mlx->map.end_game = 2;
