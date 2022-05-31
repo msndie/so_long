@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 18:46:05 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/12 21:37:29 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 18:38:17 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,18 +102,14 @@ void	ft_init_assets(t_mlx_map *mlx)
 	ft_floor(mlx);
 	ft_exit(mlx, 4);
 	ft_collect(mlx, 1);
-	// if (mlx->map.enemy_w > 0 || mlx->map.enemy_s > 0)
 	ft_danger(mlx, 0);
 	mlx->map.end_game = 0;
-	// mlx->tile = 80;
 	mlx->anim.anim = 40;
-	// mlx->anim.dang = 40;
+	mlx->anim.dang = 40;
 	mlx->anim.step = 0;
 	mlx->anim.col_flag = 0;
 	mlx->map.moves = 0;
 	mlx->anim.dir = 'r';
 	mlx->anim.exit = 0;
-	// mlx->anim.death = 0;
-	// mlx->anim.enemy_dir1 = 'w';
-	// mlx->anim.enemy_dir2 = 's';
+	mlx->anim.death = 0;
 }

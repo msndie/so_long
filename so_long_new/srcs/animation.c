@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:25:17 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/21 17:04:17 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 18:36:51 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,9 +241,7 @@ void	patrol(t_enemy *enemy, t_mlx_map *mlx)
 		}
 		else if (enemy->tile->up->type == PLAYER)
 		{
-			// enemy->tile->up->type = ENEMY;
 			enemy->tile->type = EMPTY;
-			// enemy->tile = enemy->tile->up;
 			mlx->anim.death = 20;
 			mlx->map.end_game = 2;
 		}
@@ -260,9 +258,7 @@ void	patrol(t_enemy *enemy, t_mlx_map *mlx)
 		}
 		else if (enemy->tile->down->type == PLAYER)
 		{
-			// enemy->tile->down->type = ENEMY;
 			enemy->tile->type = EMPTY;
-			// enemy->tile = enemy->tile->down;
 			mlx->anim.death = 20;
 			mlx->map.end_game = 2;
 		}

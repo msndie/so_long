@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 18:42:35 by sclam             #+#    #+#             */
-/*   Updated: 2022/03/13 20:41:34 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 18:41:16 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,14 @@ t_tile	**generate_tilemap(t_mlx_map *mlx)
 	mlx->enemy_list = NULL;
 	while (mlx->map.map[i])
 	{
-		j = 0;
-		while (mlx->map.map[i][j])
+		j = -1;
+		while (mlx->map.map[i][++j])
 		{
 			tilemap[i][j].type = define_tiletype(mlx->map.map[i][j]);
 			tilemap[i][j].orig = define_orig_tiletype(tilemap[i][j].type);
 			init_tile(tilemap, i, j);
 			if (mlx->map.map[i][j] == 'W' || mlx->map.map[i][j] == 'S')
 				add_enemy(mlx, i, j, &tilemap[i][j]);
-			j++;
 		}
 		tilemap[i][j].type = 0;
 		i++;
