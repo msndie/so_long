@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-static void	ft_draw_tile(t_mlx_map *mlx, int x, int y, t_tiletype t)
+static void	draw_tile(t_mlx_map *mlx, int x, int y, t_tiletype t)
 {
 	if (t == WALL)
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets.wall, x, y);
@@ -29,7 +29,7 @@ static void	ft_draw_tile(t_mlx_map *mlx, int x, int y, t_tiletype t)
 }
 
 
-static void	ft_draw_score(t_mlx_map *mlx)
+static void	draw_score(t_mlx_map *mlx)
 {
 	char	*str;
 	int		x;
@@ -45,7 +45,7 @@ static void	ft_draw_score(t_mlx_map *mlx)
 	free(str);
 }
 
-void	ft_render(t_mlx_map *mlx)
+void	render(t_mlx_map *mlx)
 {
 	size_t		i;
 	size_t		n;
@@ -59,15 +59,15 @@ void	ft_render(t_mlx_map *mlx)
 		{
 			type = mlx->tilemap[i][n].type;
 			if (type == mlx->tilemap[i][n].orig)
-				ft_draw_tile(mlx, n * TILE, i * TILE, type);
+				draw_tile(mlx, n * TILE, i * TILE, type);
 			else
 			{
-				ft_draw_tile(mlx, n * TILE, i * TILE, mlx->tilemap[i][n].orig);
-				ft_draw_tile(mlx, n * TILE, i * TILE, type);
+				draw_tile(mlx, n * TILE, i * TILE, mlx->tilemap[i][n].orig);
+				draw_tile(mlx, n * TILE, i * TILE, type);
 			}
 			n++;
 		}
 		i++;
 	}
-	ft_draw_score(mlx);
+	draw_score(mlx);
 }

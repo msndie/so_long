@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-void	ft_danger(t_mlx_map *mlx, int n)
+void	danger(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
@@ -31,7 +31,7 @@ void	ft_danger(t_mlx_map *mlx, int n)
 	mlx->assets.enemy = img;
 }
 
-void	ft_hero_left2(t_mlx_map *mlx, int n)
+void	hero_left2(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
@@ -56,7 +56,7 @@ void	ft_hero_left2(t_mlx_map *mlx, int n)
 	mlx->assets.hero = img;
 }
 
-void	ft_hero_right2(t_mlx_map *mlx, int n)
+void	hero_right2(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
@@ -83,7 +83,7 @@ void	ft_hero_right2(t_mlx_map *mlx, int n)
 	mlx->assets.hero = img;
 }
 
-void	ft_floor(t_mlx_map *mlx)
+void	floor_asset(t_mlx_map *mlx)
 {
 	char	*path;
 	int		img_width;
@@ -95,14 +95,15 @@ void	ft_floor(t_mlx_map *mlx)
 	mlx->assets.floor = img;
 }
 
-void	ft_init_assets(t_mlx_map *mlx)
+void	init_assets(t_mlx_map *mlx)
 {
-	ft_wall(mlx);
-	ft_hero_right(mlx, 1);
-	ft_floor(mlx);
-	ft_exit(mlx, 4);
-	ft_collect(mlx, 1);
-	ft_danger(mlx, 0);
+	wall(mlx);
+	hero_right(mlx, 1);
+	floor_asset(mlx);
+	exit_asset(mlx, 4);
+	collect(mlx, 1);
+	danger(mlx, 0);
+	mlx->anim.enemy_step = ENEMY_STEP_TICKS;
 	mlx->map.end_game = 0;
 	mlx->anim.anim = 40;
 	mlx->anim.dang = 40;

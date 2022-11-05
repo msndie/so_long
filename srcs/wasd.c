@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-void	ft_move_up(t_mlx_map *mlx)
+void	move_up(t_mlx_map *mlx)
 {
 	mlx->anim.up = 10;
 	if (mlx->hero->up->type == COLLECTABLE)
@@ -45,7 +45,7 @@ void	ft_move_up(t_mlx_map *mlx)
 	mlx->hero = mlx->hero->up;
 }
 
-void	ft_move_down(t_mlx_map *mlx)
+void	move_down(t_mlx_map *mlx)
 {
 	mlx->anim.down = 10;
 	if (mlx->hero->down->type == COLLECTABLE)
@@ -78,10 +78,10 @@ void	ft_move_down(t_mlx_map *mlx)
 	mlx->hero = mlx->hero->down;
 }
 
-void	ft_move_left(t_mlx_map *mlx)
+void	move_left(t_mlx_map *mlx)
 {
 	mlx->anim.dir = 'l';
-	mlx->anim.step = 15;
+	mlx->anim.step = STEP_TICKS;
 	if (mlx->hero->left->type == COLLECTABLE)
 	{
 		mlx->map.coll -= 1;
@@ -111,10 +111,10 @@ void	ft_move_left(t_mlx_map *mlx)
 	mlx->hero = mlx->hero->left;
 }
 
-void	ft_move_right(t_mlx_map *mlx)
+void	move_right(t_mlx_map *mlx)
 {
 	mlx->anim.dir = 'r';
-	mlx->anim.step = 15;
+	mlx->anim.step = STEP_TICKS;
 	if (mlx->hero->right->type == COLLECTABLE)
 	{
 		mlx->anim.step = 0;

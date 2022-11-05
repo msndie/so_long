@@ -23,6 +23,8 @@
 # include <mlx.h>
 
 # define TILE 80
+# define ENEMY_STEP_TICKS 30
+# define STEP_TICKS 15
 
 typedef enum e_tiletype
 {
@@ -99,30 +101,30 @@ typedef struct s_mlx_map {
 	t_enemy		*enemy_list;
 }				t_mlx_map;
 
-void	ft_map_checker(t_mlx_map *mlx);
-void	ft_init_map(char **argv, t_mlx_map *mlx);
-void	ft_ber(char *argv);
+void	map_checker(t_mlx_map *mlx);
+void	init_map(char **argv, t_mlx_map *mlx);
+void	ber(char *argv);
 t_tile	**generate_tilemap(t_mlx_map *mlx);
-void	ft_error(t_mlx_map *mlx, int error, char *str);
+void	error(t_mlx_map *mlx, int error, char *str);
 
-void	ft_move_up(t_mlx_map *mlx);
-void	ft_move_down(t_mlx_map *mlx);
-void	ft_move_left(t_mlx_map *mlx);
-void	ft_move_right(t_mlx_map *mlx);
+void	move_up(t_mlx_map *mlx);
+void	move_down(t_mlx_map *mlx);
+void	move_left(t_mlx_map *mlx);
+void	move_right(t_mlx_map *mlx);
 
-void	ft_danger(t_mlx_map *mlx, int n);
-void	ft_floor(t_mlx_map *mlx);
-void	ft_hero_right2(t_mlx_map *mlx, int n);
-void	ft_hero_left2(t_mlx_map *mlx, int n);
-void	ft_wall(t_mlx_map *mlx);
-void	ft_hero_right(t_mlx_map *mlx, int n);
-void	ft_hero_left(t_mlx_map *mlx, int n);
-void	ft_collect(t_mlx_map *mlx, int n);
-void	ft_exit(t_mlx_map *mlx, int n);
-void	ft_hero_exit(t_mlx_map *mlx, int n);
-void	ft_render(t_mlx_map *mlx);
-void	ft_init_assets(t_mlx_map *mlx);
-int		ft_anim(t_mlx_map *mlx);
+void	danger(t_mlx_map *mlx, int n);
+void	floor_asset(t_mlx_map *mlx);
+void	hero_right2(t_mlx_map *mlx, int n);
+void	hero_left2(t_mlx_map *mlx, int n);
+void	wall(t_mlx_map *mlx);
+void	hero_right(t_mlx_map *mlx, int n);
+void	hero_left(t_mlx_map *mlx, int n);
+void	collect(t_mlx_map *mlx, int n);
+void	exit_asset(t_mlx_map *mlx, int n);
+void	hero_exit(t_mlx_map *mlx, int n);
+void	render(t_mlx_map *mlx);
+void	init_assets(t_mlx_map *mlx);
+int		anim(t_mlx_map *mlx);
 
 t_enemy	*ft_lst_new(void);
 t_enemy	*ft_lst_last(t_enemy *lst);

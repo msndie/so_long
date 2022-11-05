@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-static void	ft_checker_helper(char *str, int n, t_mlx_map *mlx)
+static void	checker_helper(char *str, int n, t_mlx_map *mlx)
 {
 	size_t	i;
 
@@ -31,17 +31,17 @@ static void	ft_checker_helper(char *str, int n, t_mlx_map *mlx)
 			if (str[0] == '1' && str[ft_strlen(str) - 1] == '1')
 				return ;
 		}
-		ft_error(mlx, -1, "Map error");
+		error(mlx, -1, "Map error");
 	}
 	if (n == 2)
 	{
 		if (str[0] == '1' && str[ft_strlen(str) - 2] == '1')
 			return ;
-		ft_error(mlx, -1, "Map error");
+		error(mlx, -1, "Map error");
 	}
 }
 
-static void	ft_walls_checker(t_mlx_map *mlx)
+static void	walls_checker(t_mlx_map *mlx)
 {
 	size_t	i;
 
@@ -49,37 +49,37 @@ static void	ft_walls_checker(t_mlx_map *mlx)
 	while (mlx->map.map[i])
 	{
 		if (i == 0)
-			ft_checker_helper(mlx->map.map[i], 1, mlx);
+			checker_helper(mlx->map.map[i], 1, mlx);
 		else if (i == mlx->map.height - 1)
-			ft_checker_helper(mlx->map.map[i], 1, mlx);
+			checker_helper(mlx->map.map[i], 1, mlx);
 		else
-			ft_checker_helper(mlx->map.map[i], 2, mlx);
+			checker_helper(mlx->map.map[i], 2, mlx);
 		i++;
 	}
 }
 
-static int	ft_check_char(t_mlx_map *mlx, int i, int n)
+static int	check_char(t_mlx_map *mlx, int i, int n)
 {
 	char	c;
 
 	c = mlx->map.map[i][n];
 	if (c != '1' && c != '0' && c != 'P' && c != 'E' && c != 'C' && c != '\n'
 		&& c != 'W' && c != 'S')
-		ft_error(mlx, -1, "Map error");
+		error(mlx, -1, "Map error");
 	return (0);
 }
 
-static void	ft_find_pos(t_mlx_map *mlx, int i, int n)
+static void	find_pos(t_mlx_map *mlx, int i, int n)
 {
 	while (mlx->map.map[i])
 	{
 		while (mlx->map.map[i][n])
 		{
-			ft_check_char(mlx, i, n);
+			check_char(mlx, i, n);
 			if (mlx->map.map[i][n] == 'P')
 			{
 				if (mlx->map.h_pos_x != 0 || mlx->map.h_pos_y != 0)
-					ft_error(mlx, -1, "Map error");
+					error(mlx, -1, "Map error");
 				mlx->map.h_pos_x = n;
 				mlx->map.h_pos_y = i;
 			}
@@ -94,7 +94,7 @@ static void	ft_find_pos(t_mlx_map *mlx, int i, int n)
 	}
 }
 
-void	ft_map_checker(t_mlx_map *mlx)
+void	map_checker(t_mlx_map *mlx)
 {
 	int	i;
 	int	n;
@@ -105,9 +105,9 @@ void	ft_map_checker(t_mlx_map *mlx)
 	mlx->map.h_pos_y = 0;
 	mlx->map.coll = 0;
 	mlx->map.ex = 0;
-	ft_walls_checker(mlx);
-	ft_find_pos(mlx, i, n);
+	walls_checker(mlx);
+	find_pos(mlx, i, n);
 	if (mlx->map.coll == 0 || mlx->map.ex == 0 || mlx->map.h_pos_x == 0
 		|| mlx->map.h_pos_y == 0)
-		ft_error(mlx, -1, "Map error");
+		error(mlx, -1, "Map error");
 }

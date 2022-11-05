@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-void	ft_wall(t_mlx_map *mlx)
+void	wall(t_mlx_map *mlx)
 {
 	char	*path;
 	int		img_width;
@@ -24,7 +24,7 @@ void	ft_wall(t_mlx_map *mlx)
 	mlx->assets.wall = img;
 }
 
-void	ft_hero_right(t_mlx_map *mlx, int n)
+void	hero_right(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
@@ -53,7 +53,7 @@ void	ft_hero_right(t_mlx_map *mlx, int n)
 	mlx->assets.hero = img;
 }
 
-void	ft_hero_left(t_mlx_map *mlx, int n)
+void	hero_left(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
@@ -82,7 +82,7 @@ void	ft_hero_left(t_mlx_map *mlx, int n)
 	mlx->assets.hero = img;
 }
 
-void	ft_collect(t_mlx_map *mlx, int n)
+void	collect(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
@@ -101,7 +101,7 @@ void	ft_collect(t_mlx_map *mlx, int n)
 	mlx->assets.collect = img;
 }
 
-void	ft_hero_exit(t_mlx_map *mlx, int n)
+void	hero_exit(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
@@ -122,7 +122,7 @@ void	ft_hero_exit(t_mlx_map *mlx, int n)
 	mlx->assets.hero = img;
 }
 
-void	ft_exit(t_mlx_map *mlx, int n)
+void	exit_asset(t_mlx_map *mlx, int n)
 {
 	char	*path;
 	int		img_width;
